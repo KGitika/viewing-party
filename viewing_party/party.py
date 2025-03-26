@@ -51,7 +51,7 @@ def watch_movie(user_data, title):
 def get_watched_avg_rating(user_data):
     watched_movies = user_data["watched"]
     length_of_wathced = len(watched_movies)
-    
+
     if length_of_wathced == 0:
         return 0.0
     
@@ -59,6 +59,25 @@ def get_watched_avg_rating(user_data):
     for movie in watched_movies:
         total_rating += movie["rating"]
     return total_rating/length_of_wathced
+
+def get_most_watched_genre(user_data):
+    watched_movies = user_data["watched"]
+
+    if len(watched_movies) == 0:
+        return None
+    
+    frequency_of_genre = {} # element as genre:occurence
+    for movie in watched_movies:
+        genre = movie["genre"]
+        frequency_of_genre[genre] = frequency_of_genre.get(genre,0) + 1
+
+    popular_genre = ""
+    highest_frequency = 0
+    for genre, frequency in frequency_of_genre.items():
+        if frequency > highest_frequency:
+            popular_genre = genre
+            highest_frequency = frequency
+    return popular_genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
