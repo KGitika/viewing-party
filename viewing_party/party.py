@@ -123,4 +123,28 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    '''
+        This function gets a movie recommendation based on a user's friend
+        and most popular genre.
+    '''
+    friends_unique_watched = get_friends_unique_watched(user_data)
+    if not friends_unique_watched:
+        return []
+    
+    popular_genre = get_most_watched_genre(user_data)
+    rec_movies_list = []
+    
+    for movie in friends_unique_watched:
+        if movie["genre"] == popular_genre:
+            rec_movies_list.append(movie)
+    return rec_movies_list
+
+def get_rec_from_favorites(user_data):
+    friends_watched = get_movies_watched_by_friends(user_data)
+    recommendations = []
+    for favorite_movie in user_data["favorites"]:
+        if favorite_movie not in friends_watched:
+            recommendations.append(favorite_movie)
+    return recommendations
 
