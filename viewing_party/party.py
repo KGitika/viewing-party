@@ -82,16 +82,6 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-def get_unique_watched(user_data):
-    user_movies = get_titles(user_data["watched"])
-    friends_movies = create_friends_titles(user_data["friends"])
-    unique_movies = []
-
-    for movie in user_movies: 
-        if friends_movies.count(movie) == 0:
-            unique_movies.append(movie)
-    return unique_movies
-
 def get_titles(movies):
     titles = []
     for movie in movies:
@@ -101,11 +91,20 @@ def get_titles(movies):
 def create_friends_titles(friends):
     friends_titles = []
     for friend in friends: #refactor remove range and just put friends?
-        for movie in friend["watched"]:
-            friend_titles = get_titles(movie) 
-            friends_titles += friend_titles
+        friend_titles = get_titles(friend["watched"]) 
+        friends_titles.extend(friend_titles)
     # friend_titles = [title for titles in friend_titles for title in friend_titles]
     return friends_titles
+
+def get_unique_watched(user_data):
+    user_movies = get_titles(user_data["watched"])
+    friends_movies = create_friends_titles(user_data["friends"])
+    unique_movies = []
+
+    for movie in user_movies: 
+        if friends_movies.count(movie) == 0:
+            unique_movies.append(movie)
+    return unique_movies
 
 
 
