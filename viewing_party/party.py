@@ -68,8 +68,8 @@ def get_most_watched_genre(user_data):
     
     frequency_of_genre = {} # element as genre:occurence
     for movie in watched_movies:
-        genre = movie["genre"]
-        frequency_of_genre[genre] = frequency_of_genre.get(genre,0) + 1
+        genre_of_movie = movie["genre"]
+        frequency_of_genre[genre_of_movie] = frequency_of_genre.get(genre_of_movie,0) + 1
 
     popular_genre = ""
     highest_frequency = 0
@@ -83,12 +83,44 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+def get_movies_watched_by_friends(user_data):  # return [M,M,M]
+    movies_watched_by_friends = []
+    for friend in user_data["friends"]:
+        movies_watched_by_friends.extend(friend["watched"])
+    return movies_watched_by_friends
+
+def get_unique_watched(user_data):
+    movies_watched_by_user = user_data["watched"] #[M,M,M]
+    movies_watched_by_friends = get_movies_watched_by_friends(user_data)
+    
+    unique_watched = []
+    for movie in movies_watched_by_user:
+        if movie not in movies_watched_by_friends:
+            unique_watched.append(movie)
+    return unique_watched
+
+    # movies_watched_by_user_as_set = set(movies_watched_by_user)
+    # movies_watched_by_friends_as_set = set(movies_watched_by_friends)
+    # return list(movies_watched_by_user_as_set.difference(movies_watched_by_friends_as_set))
+
+def get_friends_unique_watched(user_data):
+    movies_watched_by_user = user_data["watched"]
+    movies_watched_by_friends = get_movies_watched_by_friends(user_data)
+    
+    friends_unique_watched = []
+    for movie in movies_watched_by_friends:
+        if movie not in movies_watched_by_user and movie not in friends_unique_watched:
+            friends_unique_watched.append(movie)
+    return friends_unique_watched
+
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+ 
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
 
