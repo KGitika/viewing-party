@@ -101,11 +101,11 @@ def get_titles(movies):
 def create_friends_titles(friends):
     friends_titles = []
     for friend in friends: #refactor remove range and just put friends?
-        for titles in friend["watched"]:
-            friend_titles = get_titles(titles) 
-            friends_titles.append(friend_titles)
-    friend_titles = [title for titles in friend_titles for title in friend_titles]
-    return friend_titles
+        for movie in friend["watched"]:
+            friend_titles = get_titles(movie) 
+            friends_titles += friend_titles
+    # friend_titles = [title for titles in friend_titles for title in friend_titles]
+    return friends_titles
 
 
 
