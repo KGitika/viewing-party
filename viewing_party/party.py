@@ -87,24 +87,25 @@ def get_unique_watched(user_data):
     friends_movies = create_friends_titles(user_data["friends"])
     unique_movies = []
 
-    for movie in user_movies:
+    for movie in user_movies: 
         if friends_movies.count(movie) == 0:
             unique_movies.append(movie)
     return unique_movies
 
 def get_titles(movies):
     titles = []
-    for title in movies:
-        titles.append(title["title"])
+    for movie in movies:
+        titles.append(movie["title"])
     return titles
-    # Refactor with extends()
 
 def create_friends_titles(friends):
     friends_titles = []
-    for friend in range(len(friends)):
-        friend_titles = get_titles(friends[friend]["watched"]) 
-        friends_titles.append(friend_titles)
-    friend_titles = [title for unique_title in friend_titles if unique_title == True]
+    for friend in friends: #refactor remove range and just put friends?
+        for titles in friend["watched"]:
+            friend_titles = get_titles(titles) 
+            friends_titles.append(friend_titles)
+    friend_titles = [title for titles in friend_titles for title in friend_titles]
+    return friend_titles
 
 
 
