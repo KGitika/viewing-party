@@ -42,9 +42,6 @@ def get_watched_avg_rating(user_data):
 
 def get_most_watched_genre(user_data):
     watched_movies = user_data["watched"]
-
-    # if len(watched_movies) == 0:
-    #     return None
     
     frequency_of_genre = {} # element as genre:occurence
     for movie in watched_movies:
