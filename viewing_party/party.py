@@ -90,8 +90,7 @@ def get_friends_unique_watched(user_data):
         if movie not in movies_watched_by_user and movie not in friends_unique_watched:
             friends_unique_watched.append(movie)
     return friends_unique_watched
-
-        
+      
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
