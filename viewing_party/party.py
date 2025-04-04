@@ -32,15 +32,13 @@ def watch_movie(user_data, title):
 
 def get_watched_avg_rating(user_data):
     watched_movies = user_data["watched"]
-    length_of_wathced = len(watched_movies)
-
-    if length_of_wathced == 0:
-        return 0.0
-    
     total_rating = 0.0
     for movie in watched_movies:
         total_rating += movie["rating"]
-    return total_rating/length_of_wathced
+    try:
+        return total_rating/len(watched_movies)
+    except ZeroDivisionError:
+        return total_rating
 
 def get_most_watched_genre(user_data):
     watched_movies = user_data["watched"]
